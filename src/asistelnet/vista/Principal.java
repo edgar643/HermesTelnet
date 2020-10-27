@@ -16,12 +16,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+import utilidades.Advertencia;
 
 /**
  *
  * @author Edgar J García L
  */
 public class Principal extends javax.swing.JFrame {
+
+    private String[] opciones = {"         Si       ", "      No       "};
+    private Advertencia adv = new Advertencia();
 
     /**
      * Creates new form Frame
@@ -59,7 +63,7 @@ public class Principal extends javax.swing.JFrame {
         jProgressBar1 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Ares Telnet");
+        setTitle("Hermes Telnet");
 
         jTextArea1.setColumns(50);
         jTextArea1.setRows(2);
@@ -106,6 +110,11 @@ public class Principal extends javax.swing.JFrame {
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asistelnet/vista/Save-icon.png"))); // NOI18N
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton3);
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asistelnet/vista/Search24.png"))); // NOI18N
@@ -236,8 +245,14 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextArea1KeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        log.setText("");
+
+        if (adv.Pregunta("Desea borrar el registro logs? ", opciones))
+            log.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
