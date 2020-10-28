@@ -23,7 +23,7 @@ import utilidades.Advertencia;
  * @author Edgar J García L
  */
 public class Principal extends javax.swing.JFrame {
-
+    
     private String[] opciones = {"         Si       ", "      No       "};
     private Advertencia adv = new Advertencia();
 
@@ -60,6 +60,7 @@ public class Principal extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
+        timeOut = new javax.swing.JSpinner();
         jProgressBar1 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -140,6 +141,10 @@ public class Principal extends javax.swing.JFrame {
         jCheckBox1.setSelected(true);
         jCheckBox1.setText("Mantener");
 
+        timeOut.setModel(new javax.swing.SpinnerNumberModel(5, 0, 120, 1));
+        timeOut.setToolTipText("Tiempo de espera maximo");
+        timeOut.setBorder(javax.swing.BorderFactory.createTitledBorder("Time Out"));
+
         javax.swing.GroupLayout mensajeLayout = new javax.swing.GroupLayout(mensaje);
         mensaje.setLayout(mensajeLayout);
         mensajeLayout.setHorizontalGroup(
@@ -157,6 +162,8 @@ public class Principal extends javax.swing.JFrame {
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(timeOut, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(mensajeLayout.createSequentialGroup()
@@ -175,10 +182,12 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(mensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(timeOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -247,7 +256,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextArea1KeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        
         if (adv.Pregunta("Desea borrar el registro logs? ", opciones))
             log.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -261,13 +270,13 @@ public class Principal extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         try {
-
+            
             UIManager.setLookAndFeel(new SyntheticaBlackEyeLookAndFeel());
-
+            
         } catch (Exception e) {
-
+            
             e.printStackTrace();
-
+            
         }
 
         /* Create and display the form */
@@ -279,7 +288,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private void enviarTrama() {
         System.out.println("Enviar trama");
         final String MESSAGE = jTextArea1.getText().trim();
@@ -288,8 +297,8 @@ public class Principal extends javax.swing.JFrame {
         }
         int PUERTO = Integer.parseInt(jTextField2.getText());
         final String HOST = jTextField1.getText();
-
-        ControladorPrincipal controller = new ControladorPrincipal();
+        
+        ControladorPrincipal controller = new ControladorPrincipal(Integer.parseInt(timeOut.getValue().toString()));
         Thread hilo1 = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -299,13 +308,13 @@ public class Principal extends javax.swing.JFrame {
                 jProgressBar1.setIndeterminate(false);
                 if (exitoso != null) {
                     log.append("RECIBO: " + exitoso + "\n");
-
+                    
                 }
             }
         });
         hilo1.setPriority(Thread.MAX_PRIORITY);
         hilo1.start();
-
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -327,5 +336,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextArea log;
     private javax.swing.JPanel mensaje;
+    private javax.swing.JSpinner timeOut;
     // End of variables declaration//GEN-END:variables
 }

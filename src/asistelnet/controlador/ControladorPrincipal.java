@@ -20,12 +20,18 @@ import java.util.logging.Logger;
  */
 public class ControladorPrincipal {
 
+    private static int timeOut = 0;
+
+    public ControladorPrincipal(int timeOut) {
+        this.timeOut = timeOut;
+    }
+
     public String imprimirAlServer(final String aImprimir, final String HOST, final int PUERTO) {
         try (Socket newClient = new Socket(HOST, PUERTO);
                 final PrintWriter out = new PrintWriter(newClient.getOutputStream(), true);) {
             out.println(aImprimir);
             String respuesta = leerRespuestaServer(HOST, PUERTO, newClient);
-            
+
             return respuesta;
         } catch (Exception ex) {
             System.out.println(ex.toString());
@@ -35,11 +41,11 @@ public class ControladorPrincipal {
         }
     }
 
-    public String leerRespuestaServer(final String HOST, final int PUERTO,Socket NewClient) {
+    public String leerRespuestaServer(final String HOST, final int PUERTO, Socket NewClient) {
         String trama = "SIN RESPUESTA TIME OUT EXCEDIDO";
         try {
-          
-            NewClient.setSoTimeout(15000);
+
+            NewClient.setSoTimeout(timeOut * 1000);
             int character;
             final BufferedReader buffer_reader = new BufferedReader(new InputStreamReader(NewClient.getInputStream()));
             final StringBuilder string_builder = new StringBuilder();
