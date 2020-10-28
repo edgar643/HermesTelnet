@@ -66,6 +66,7 @@ public class Principal extends javax.swing.JFrame {
         setTitle("Hermes Telnet");
 
         jTextArea1.setColumns(50);
+        jTextArea1.setForeground(new java.awt.Color(255, 255, 0));
         jTextArea1.setRows(2);
         jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -76,6 +77,7 @@ public class Principal extends javax.swing.JFrame {
 
         log.setEditable(false);
         log.setColumns(20);
+        log.setForeground(new java.awt.Color(51, 255, 51));
         log.setRows(5);
         jScrollPane3.setViewportView(log);
 
