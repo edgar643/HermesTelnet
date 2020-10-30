@@ -250,9 +250,9 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            enviarTrama();
-        }
+         if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_ENTER) {
+           enviarTrama();
+}
     }//GEN-LAST:event_jTextArea1KeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
