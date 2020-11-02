@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +29,7 @@ public class ControladorPrincipal {
         try (Socket newClient = new Socket(HOST, PUERTO);
                 final PrintWriter out = new PrintWriter(newClient.getOutputStream(), true);) {
             out.println(aImprimir);
+   
             String respuesta = leerRespuestaServer(HOST, PUERTO, newClient);
 
             return respuesta;

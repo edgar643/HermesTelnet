@@ -23,9 +23,10 @@ import utilidades.Advertencia;
  * @author Edgar J García L
  */
 public class Principal extends javax.swing.JFrame {
-    
+
     private String[] opciones = {"         Si       ", "      No       "};
     private Advertencia adv = new Advertencia();
+    private transient long tiempo;
 
     /**
      * Creates new form Frame
@@ -246,15 +247,15 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased
-         if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_ENTER) {
-           enviarTrama();
-}
+        if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            enviarTrama();
+        }
     }//GEN-LAST:event_jTextArea1KeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         if (adv.Pregunta("Desea borrar el registro logs? ", opciones))
-             log.setText("");
+            log.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -266,13 +267,13 @@ public class Principal extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         try {
-            
+
             UIManager.setLookAndFeel(new SyntheticaBlackEyeLookAndFeel());
-            
+
         } catch (Exception e) {
-            
+
             e.printStackTrace();
-            
+
         }
 
         /* Create and display the form */
@@ -284,7 +285,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void enviarTrama() {
         System.out.println("Enviar trama");
         final String MESSAGE = jTextArea1.getText().trim();
@@ -293,24 +294,31 @@ public class Principal extends javax.swing.JFrame {
         }
         int PUERTO = Integer.parseInt(jTextField2.getText());
         final String HOST = jTextField1.getText();
-        
+
         ControladorPrincipal controller = new ControladorPrincipal(Integer.parseInt(timeOut.getValue().toString()));
         Thread hilo1 = new Thread(new Runnable() {
             @Override
             public void run() {
                 jProgressBar1.setIndeterminate(true);
                 log.append("ENVIO: " + MESSAGE + "\n");
+                tiempo = System.currentTimeMillis();
                 String exitoso = controller.imprimirAlServer(MESSAGE, HOST, PUERTO);
+                setTiempo(System.currentTimeMillis() - tiempo);
                 jProgressBar1.setIndeterminate(false);
+
                 if (exitoso != null) {
-                    log.append("RECIBO: " + exitoso + "\n");
-                    
+                    log.append("RECIBO: " + exitoso + "Se demoro:" + tiempo + " \n");
+
                 }
             }
         });
         hilo1.setPriority(Thread.MAX_PRIORITY);
         hilo1.start();
-        
+
+    }
+
+    private void setTiempo(final long Time) {
+        this.tiempo = Time;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
