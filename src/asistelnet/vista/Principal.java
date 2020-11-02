@@ -7,14 +7,7 @@ package asistelnet.vista;
 
 import asistelnet.controlador.ControladorPrincipal;
 import de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.sound.midi.ControllerEventListener;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import utilidades.Advertencia;
@@ -44,6 +37,10 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        copiar = new javax.swing.JMenuItem();
+        cortar = new javax.swing.JMenuItem();
+        pegar = new javax.swing.JMenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         panelPpal = new javax.swing.JPanel();
@@ -64,12 +61,41 @@ public class Principal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();
 
+        copiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asistelnet/vista/copy-icon.png"))); // NOI18N
+        copiar.setText("Copiar");
+        copiar.setToolTipText("");
+        copiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                copiarActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(copiar);
+
+        cortar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asistelnet/vista/cut 16x16.png"))); // NOI18N
+        cortar.setText("Cortar");
+        cortar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cortarActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(cortar);
+
+        pegar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asistelnet/vista/Paste-icon16x16.png"))); // NOI18N
+        pegar.setText("Pegar");
+        pegar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pegarActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(pegar);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hermes Telnet");
 
         jTextArea1.setColumns(50);
         jTextArea1.setForeground(new java.awt.Color(255, 255, 0));
         jTextArea1.setRows(2);
+        jTextArea1.setComponentPopupMenu(jPopupMenu1);
         jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextArea1KeyReleased(evt);
@@ -80,7 +106,7 @@ public class Principal extends javax.swing.JFrame {
         log.setEditable(false);
         log.setColumns(20);
         log.setForeground(new java.awt.Color(51, 255, 51));
-        log.setRows(5);
+        log.setRows(10);
         jScrollPane3.setViewportView(log);
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -263,6 +289,18 @@ public class Principal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void pegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pegarActionPerformed
+        jTextArea1.paste();
+    }//GEN-LAST:event_pegarActionPerformed
+
+    private void cortarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cortarActionPerformed
+        jTextArea1.cut();
+    }//GEN-LAST:event_cortarActionPerformed
+
+    private void copiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copiarActionPerformed
+        jTextArea1.copy();
+    }//GEN-LAST:event_copiarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -323,16 +361,18 @@ public class Principal extends javax.swing.JFrame {
         log.selectAll();
         int last = log.getSelectionEnd();
         log.select(last, last);
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem copiar;
+    private javax.swing.JMenuItem cortar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -345,6 +385,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextArea log;
     private javax.swing.JPanel panelPpal;
+    private javax.swing.JMenuItem pegar;
     private javax.swing.JSpinner timeOut;
     // End of variables declaration//GEN-END:variables
 }
