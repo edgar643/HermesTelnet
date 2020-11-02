@@ -307,7 +307,7 @@ public class Principal extends javax.swing.JFrame {
                 jProgressBar1.setIndeterminate(false);
 
                 if (exitoso != null) {
-                    log.append("RECIBO: " + exitoso + "Se demoro:" + tiempo + " \n");
+                    log.append("RECIBO: " + exitoso + " Se demoro:" + tiempo + " \n");
 
                 }
             }
