@@ -302,17 +302,16 @@ public class Principal extends javax.swing.JFrame {
             public void run() {
                 jProgressBar1.setIndeterminate(true);
                 log.append("ENVIO: " + MESSAGE + "\n");
-
+                bajarLog();
                 String exitoso = controller.imprimirAlServer(MESSAGE, HOST, PUERTO);
                 long tiempo = controller.getTiempo();
                 jProgressBar1.setIndeterminate(false);
 
                 if (exitoso != null) {
                     log.append("RECIBO: " + exitoso + "     Se demoró:" + tiempo + " \n");
-                    log.selectAll();
-                    int last = log.getSelectionEnd();
-                    log.select(last, last);
+                    bajarLog();
                 }
+
             }
         });
         hilo1.setPriority(Thread.MAX_PRIORITY);
@@ -320,6 +319,12 @@ public class Principal extends javax.swing.JFrame {
 
     }
 
+    private void bajarLog() {
+        log.selectAll();
+        int last = log.getSelectionEnd();
+        log.select(last, last);
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
