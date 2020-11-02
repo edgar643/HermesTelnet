@@ -254,8 +254,9 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        if (adv.Pregunta("Desea borrar el registro logs? ", opciones))
+        if (adv.Pregunta("Desea borrar el registro logs? ", opciones)) {
             log.setText("");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -307,8 +308,10 @@ public class Principal extends javax.swing.JFrame {
                 jProgressBar1.setIndeterminate(false);
 
                 if (exitoso != null) {
-                    log.append("RECIBO: " + exitoso + "     Se demoro:" + tiempo + " \n");
-
+                    log.append("RECIBO: " + exitoso + "     Se demoró:" + tiempo + " \n");
+                    log.selectAll();
+                    int last = log.getSelectionEnd();
+                    log.select(last, last);
                 }
             }
         });
