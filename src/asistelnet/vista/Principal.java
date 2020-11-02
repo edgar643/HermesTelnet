@@ -14,6 +14,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.midi.ControllerEventListener;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import utilidades.Advertencia;
@@ -26,7 +27,6 @@ public class Principal extends javax.swing.JFrame {
 
     private String[] opciones = {"         Si       ", "      No       "};
     private Advertencia adv = new Advertencia();
-    private transient long tiempo;
 
     /**
      * Creates new form Frame
@@ -301,13 +301,13 @@ public class Principal extends javax.swing.JFrame {
             public void run() {
                 jProgressBar1.setIndeterminate(true);
                 log.append("ENVIO: " + MESSAGE + "\n");
-                tiempo = System.currentTimeMillis();
+
                 String exitoso = controller.imprimirAlServer(MESSAGE, HOST, PUERTO);
-                setTiempo(System.currentTimeMillis() - tiempo);
+                long tiempo = controller.getTiempo();
                 jProgressBar1.setIndeterminate(false);
 
                 if (exitoso != null) {
-                    log.append("RECIBO: " + exitoso + " Se demoro:" + tiempo + " \n");
+                    log.append("RECIBO: " + exitoso + "     Se demoro:" + tiempo + " \n");
 
                 }
             }
@@ -317,9 +317,6 @@ public class Principal extends javax.swing.JFrame {
 
     }
 
-    private void setTiempo(final long Time) {
-        this.tiempo = Time;
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

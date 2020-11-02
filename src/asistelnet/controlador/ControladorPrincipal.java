@@ -20,23 +20,28 @@ import java.util.logging.Logger;
 public class ControladorPrincipal {
 
     private static int timeOut = 0;
+    private transient long tiempo;
 
     public ControladorPrincipal(int timeOut) {
         this.timeOut = timeOut;
+    }
+
+    public long getTiempo() {
+        return tiempo;
     }
 
     public String imprimirAlServer(final String aImprimir, final String HOST, final int PUERTO) {
         try (Socket newClient = new Socket(HOST, PUERTO);
                 final PrintWriter out = new PrintWriter(newClient.getOutputStream(), true);) {
             out.println(aImprimir);
-   
+            tiempo = System.currentTimeMillis();
             String respuesta = leerRespuestaServer(HOST, PUERTO, newClient);
-
+            tiempo = System.currentTimeMillis() - tiempo;
             return respuesta;
         } catch (Exception ex) {
             System.out.println(ex.toString());
             Logger.getGlobal().log(Level.SEVERE, ex.toString());
-
+         tiempo = System.currentTimeMillis() - tiempo;
             return null;
         }
     }
