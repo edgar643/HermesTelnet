@@ -7,6 +7,7 @@ package asistelnet.vista;
 
 import asistelnet.controlador.ControladorPrincipal;
 import de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel;
+import gestordocumental.GestorDocumental;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
@@ -20,6 +21,7 @@ public class Principal extends javax.swing.JFrame {
 
     private String[] opciones = {"         Si       ", "      No       "};
     private Advertencia adv = new Advertencia();
+    private final GestorDocumental gestorDocumental = new GestorDocumental();
 
     /**
      * Creates new form Frame
@@ -342,17 +344,16 @@ public class Principal extends javax.swing.JFrame {
             @Override
             public void run() {
                 jProgressBar1.setIndeterminate(true);
-                log.append("ENVIO: " + MESSAGE + "\n");
+                log.append(gestorDocumental.obtenerHoraActual() + " Envio: " + MESSAGE + "\n");
                 bajarLog();
                 String exitoso = controller.imprimirAlServer(MESSAGE, HOST, PUERTO);
                 long tiempo = controller.getTiempo();
                 jProgressBar1.setIndeterminate(false);
 
                 if (exitoso != null) {
-                    log.append("RECIBO: " + exitoso + "     Se demoró: " + tiempo + " \n");
+                    log.append(gestorDocumental.obtenerHoraActual() + " Recibo: " + exitoso + "     Se demoró: " + tiempo + " \n");
                     bajarLog();
                 }
-
             }
         });
         hilo1.setPriority(Thread.MAX_PRIORITY);

@@ -5,6 +5,7 @@
  */
 package asistelnet.controlador;
 
+import gestordocumental.GestorDocumental;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,6 +22,7 @@ public class ControladorPrincipal {
 
     private static int timeOut = 0;
     private transient long tiempo;
+    private final GestorDocumental gestorDocumental = new GestorDocumental();
 
     public ControladorPrincipal(int timeOut) {
         this.timeOut = timeOut;
@@ -41,13 +43,13 @@ public class ControladorPrincipal {
         } catch (Exception ex) {
             System.out.println(ex.toString());
             Logger.getGlobal().log(Level.SEVERE, ex.toString());
-         tiempo = System.currentTimeMillis() - tiempo;
+            tiempo = System.currentTimeMillis() - tiempo;
             return null;
         }
     }
 
     public String leerRespuestaServer(final String HOST, final int PUERTO, Socket NewClient) {
-        String trama = "SIN RESPUESTA TIME OUT EXCEDIDO";
+        String trama = "Sin Respuesta Time Out excedido";
         try {
 
             NewClient.setSoTimeout(timeOut * 1000);
