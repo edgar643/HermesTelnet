@@ -8,11 +8,14 @@ package asistelnet.vista;
 import asistelnet.controlador.ControladorPrincipal;
 import de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel;
 import gestordocumental.GestorDocumental;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import security.RsaImplementation;
 import utilidades.Advertencia;
@@ -71,9 +74,15 @@ public class Principal extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
         timeOut = new javax.swing.JSpinner();
         jButton2 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+
+        jSpinner1 = new javax.swing.JSpinner();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jPanel3 = new javax.swing.JPanel();
         jProgressBar1 = new javax.swing.JProgressBar();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
@@ -110,6 +119,7 @@ public class Principal extends javax.swing.JFrame {
         jPopupMenu1.add(pegar);
 
         jDialog1.setTitle("Encriptar/Desencriptar RSA");
+        jDialog1.setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -263,9 +273,6 @@ public class Principal extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton1);
 
-        jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Mantener");
-
         timeOut.setModel(new javax.swing.SpinnerNumberModel(5, 0, 120, 1));
         timeOut.setToolTipText("Tiempo de espera maximo");
         timeOut.setBorder(javax.swing.BorderFactory.createTitledBorder("Time Out"));
@@ -277,22 +284,82 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, 59, 1));
+        jSpinner1.setToolTipText("Tiempo de repeticion de cada peticion");
+        jSpinner1.setBorder(javax.swing.BorderFactory.createTitledBorder("Segundo(s)"));
+        jSpinner1.setVisible(false);
+
+        jCheckBox2.setText("Repetir");
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox1.setSelected(true);
+        jCheckBox1.setText("Mantener");
+
+        jToggleButton1.setText("Iniciar");
+        jToggleButton1.setVisible(false);
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGap(108, 108, 108)
+                    .addComponent(jCheckBox2)
+                    .addContainerGap(636, Short.MAX_VALUE)))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jCheckBox1)
+                    .addContainerGap(725, Short.MAX_VALUE)))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton1))
+                .addGap(0, 8, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jCheckBox2)
+                    .addContainerGap(16, Short.MAX_VALUE)))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jCheckBox1)
+                    .addContainerGap(16, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout panelPpalLayout = new javax.swing.GroupLayout(panelPpal);
         panelPpal.setLayout(panelPpalLayout);
         panelPpalLayout.setHorizontalGroup(
             panelPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
             .addGroup(panelPpalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPpalLayout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jSeparator2)
                     .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPpalLayout.createSequentialGroup()
                         .addGroup(panelPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPpalLayout.createSequentialGroup()
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -300,9 +367,10 @@ public class Principal extends javax.swing.JFrame {
                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(timeOut, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
-            .addComponent(jSeparator1)
+                                .addGap(0, 363, Short.MAX_VALUE))
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         panelPpalLayout.setVerticalGroup(
             panelPpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,13 +385,13 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(timeOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox1)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -333,22 +401,33 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelPpal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelPpal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(panelPpal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Principal", jPanel1);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 851, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 509, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("+", jPanel3);
 
         jMenu2.setText("Utilidades");
         jMenu2.addActionListener(new java.awt.event.ActionListener() {
@@ -358,6 +437,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         jMenuItem1.setText("Encriptar RSA");
+        jMenuItem1.setEnabled(false);
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -366,6 +446,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem1);
 
         jMenuItem2.setText("Desencriptar RSA");
+        jMenuItem2.setEnabled(false);
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -384,13 +465,21 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(jTabbedPane1))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13))
         );
 
         pack();
@@ -489,6 +578,44 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        jSpinner1.setVisible(jCheckBox2.isSelected());
+        jToggleButton1.setVisible(jCheckBox2.isSelected());
+        jToggleButton1.setSelected(!jCheckBox2.isSelected());
+        if (timer != null && !jCheckBox2.isSelected()) {
+            timer.stop();
+        }
+        String estado = jToggleButton1.isSelected() ? "Detener" : "Iniciar";
+        jToggleButton1.setText(estado);
+         jButton2.setEnabled(true);
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+    private Timer timer;
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        enviarTrama();
+        String estado = jToggleButton1.isSelected() ? "Detener" : "Iniciar";
+        jToggleButton1.setText(estado);
+
+        if (jToggleButton1.isSelected()) {
+            timer = new Timer(Integer.parseInt(jSpinner1.getValue().toString()) * 1000, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    enviarTrama();
+                }
+
+            });
+
+            timer.start();
+            System.out.println("Inicio");
+            jButton2.setEnabled(false);
+
+        } else if (timer != null) {
+            timer.stop();
+            System.out.println("Parar");
+            jButton2.setEnabled(true);
+
+        }
+
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -550,7 +677,6 @@ public class Principal extends javax.swing.JFrame {
         log.select(last, last);
     }
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem copiar;
     private javax.swing.JMenuItem cortar;
@@ -561,6 +687,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -569,6 +696,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -578,12 +707,14 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextArea log;
     private javax.swing.JPanel panelPpal;
